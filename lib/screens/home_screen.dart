@@ -20,24 +20,29 @@ class HomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _buildRecommendedCard(screenwidth, screenheight),
-          Padding(
-            padding: EdgeInsets.only(
-                bottom: MyPaddings().defaultPadding,
-                left: MyPaddings().defaultPadding,
-                right: MyPaddings().defaultPadding),
-            child: Container(
-                width: screenwidth * 0.8,
-                height: screenheight * 0.3,
-                child: PageView.builder(
-                  itemCount: menuItems.length,
-                  controller: PageController(viewportFraction: 0.9),
-                  itemBuilder: (context, index) {
-                    MenuItems item = menuItems[index];
-                    return MenuItemCard(menuItem: item);
-                  },
-                )),
-          ),
+          _buildMenuPageView(screenwidth, screenheight),
         ],
+      ),
+    );
+  }
+
+  Padding _buildMenuPageView(double screenwidth, double screenheight) {
+    return Padding(
+      padding: EdgeInsets.only(
+          bottom: MyPaddings().defaultPadding,
+          left: MyPaddings().defaultPadding,
+          right: MyPaddings().defaultPadding),
+      child: Container(
+        width: screenwidth * 0.8,
+        height: screenheight * 0.3,
+        child: PageView.builder(
+          itemCount: menuItems.length,
+          controller: PageController(viewportFraction: 0.9),
+          itemBuilder: (context, index) {
+            MenuItems item = menuItems[index];
+            return MenuItemCard(menuItem: item);
+          },
+        ),
       ),
     );
   }
