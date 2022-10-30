@@ -9,6 +9,8 @@ class LightTheme {
       elevation: 0,
       centerTitle: true,
       titleTextStyle: GoogleFonts.pacifico(),
+      actionsIconTheme: IconThemeData(color: Colors.grey),
+      iconTheme: IconThemeData(color: Colors.grey[600]),
     ),
     textTheme: TextTheme(
       headline4: TextStyle(
