@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       //   primarySwatch: Colors.blue,
       // ),
       theme: LightTheme.lightTheme,
-      home: const FoodListScreen(),
+      home: const HomeScreen(),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:veg_kitchen/models/menu_item.dart';
+import 'package:veg_kitchen/screens/foods_list_screen.dart';
 
 class MenuItemCard extends StatelessWidget {
   final MenuItems menuItem;
@@ -9,6 +10,13 @@ class MenuItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => FoodListScreen(
+            menuItem: menuItem,
+          ),
+        ),
+      ),
       child: Container(
         margin: EdgeInsets.all(2),
         decoration: BoxDecoration(
