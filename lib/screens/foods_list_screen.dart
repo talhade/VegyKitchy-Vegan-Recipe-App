@@ -1,51 +1,57 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:veg_kitchen/constants/paddings.dart';
 import 'package:veg_kitchen/models/food.dart';
+import 'package:veg_kitchen/models/menu_item.dart';
 import 'package:veg_kitchen/services/food_api.dart';
-import 'package:veg_kitchen/theme/colors.dart';
 import 'package:veg_kitchen/widgets/food_list_tile.dart';
 
 import '../constants/strings.dart';
 
 class FoodListScreen extends StatefulWidget {
-  const FoodListScreen({super.key});
+  final MenuItems menuItem;
+  const FoodListScreen({super.key, required this.menuItem});
 
   @override
   State<FoodListScreen> createState() => _FoodListScreenState();
 }
 
 class _FoodListScreenState extends State<FoodListScreen> {
-  String _url =
-      'https://api.spoonacular.com/recipes/complexSearch?apiKey=d33129e006ca499da3684e15240b01d5&diet=vegan&type=main course';
+  late Future<List<FoodModel>> _foodList;
   @override
   void initState() {
     super.initState();
-    fetchApi();
-  }
-
-  fetchApi() async {
-    List<FoodModel> _list = [];
-    var response = await Dio().get(_url);
-    Map<String, dynamic> data = jsonDecode(response.data);
-    var res = data["results"];
-    print(res);
+    _foodList = widget.menuItem.fetchApi;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: _buildAppBar(),
+      appBar: _buildAppBar(),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              FoodListTile(),
-            ],
-          ),
+        child: FutureBuilder(
+          future: _foodList,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<FoodModel> _list = snapshot.data!;
+              return ListView.builder(
+                itemCount: _list.length,
+                itemBuilder: (context, index) {
+                  var _food = _list[index];
+                  return FoodListTile(
+                    food: _food,
+                  );
+                },
+              );
+            } else if (snapshot.hasError) {
+              return const Center(
+                child: Text('Unable to Load'),
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
         ),
       ),
     );
@@ -54,7 +60,7 @@ class _FoodListScreenState extends State<FoodListScreen> {
   AppBar _buildAppBar() {
     return AppBar(
       title: Text(
-        MyStrings().AppBarText,
+        widget.menuItem.title,
         style: GoogleFonts.pacifico(color: Colors.black),
       ),
     );
