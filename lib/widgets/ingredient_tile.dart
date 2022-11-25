@@ -42,13 +42,14 @@ class IngredientTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              ingredient.name!,
+              ingredient.name!.toUpperCase(),
               style: Theme.of(context)
                   .textTheme
                   .headline6
                   ?.copyWith(color: Colors.black),
             ),
             Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   ingredient.amount!.metric!.value.toString().toUpperCase(),
