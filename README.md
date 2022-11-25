@@ -8,8 +8,6 @@ I used spoonacular api to create this app.
 ![app_video_vegan](https://user-images.githubusercontent.com/114522498/204005122-3ffda4ff-b6b3-4be8-8063-e56b6b72999e.gif)
 
 
-Demoya gif veya bağlantı ekleyin
-
 
 To Run The App:
 - Coppy This Repository
