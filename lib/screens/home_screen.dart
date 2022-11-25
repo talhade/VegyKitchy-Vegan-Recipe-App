@@ -2,11 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:veg_kitchen/constants/paddings.dart';
 import 'package:veg_kitchen/constants/strings.dart';
+import 'package:veg_kitchen/models/food.dart';
 import 'package:veg_kitchen/models/menu_item.dart';
+import 'package:veg_kitchen/screens/details_screen.dart';
+import 'package:veg_kitchen/services/food_api.dart';
 import 'package:veg_kitchen/widgets/menu_item_card.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late Future<List<FoodModel>> _recommended;
+  @override
+  void initState() {
+    super.initState();
+    _recommended = FoodApi.fetchRandomRecipe();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +34,25 @@ class HomeScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildRecommendedCard(screenwidth, screenheight),
+          FutureBuilder(
+            future: _recommended,
+            builder: ((context, snapshot) {
+              if (snapshot.hasData) {
+                List<FoodModel> _list = snapshot.data!;
+                return _buildRecommendedCard(
+                    screenwidth, screenheight, _list[0]);
+              } else if (snapshot.hasError) {
+                return const Center(
+                  child: Text('Unable To Load'),
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            }),
+          ),
+          // _buildRecommendedCard(screenwidth, screenheight, _recommended),
           _buildMenuPageView(screenwidth, screenheight),
         ],
       ),
@@ -47,57 +80,68 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Padding _buildRecommendedCard(double screenwidth, double screenheight) {
+  Padding _buildRecommendedCard(
+      double screenwidth, double screenheight, FoodModel recommended) {
     return Padding(
       padding: EdgeInsets.all(MyPaddings().defaultPadding),
-      child: Stack(
-        children: [
-          Container(
-            width: screenwidth,
-            height: screenheight * 0.4,
-            child: Image.asset(
-              MyStrings().recomendedRecipePath,
-              fit: BoxFit.cover,
-            ),
+      child: GestureDetector(
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: ((context) => DetailsScreen(food: recommended)),
           ),
-          Container(
-            width: screenwidth,
-            height: screenheight * 0.4,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(colors: [
-                Colors.black54,
-                Colors.black45,
-                Colors.transparent,
-              ], begin: Alignment.bottomCenter, end: Alignment.topCenter),
+        ),
+        child: Stack(
+          children: [
+            Hero(
+              tag: recommended.id!,
+              child: Container(
+                width: screenwidth,
+                height: screenheight * 0.4,
+                child: Image.network(
+                  recommended.image!,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-          ),
-          Positioned.fill(
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: Padding(
-                padding: EdgeInsets.all(MyPaddings().defaultPadding),
-                child: Text(
-                  MyStrings().RecommendCardText,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: screenheight * 0.03,
-                    fontWeight: FontWeight.bold,
+            Container(
+              width: screenwidth,
+              height: screenheight * 0.4,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(colors: [
+                  Colors.black54,
+                  Colors.black45,
+                  Colors.transparent,
+                ], begin: Alignment.bottomCenter, end: Alignment.topCenter),
+              ),
+            ),
+            Positioned.fill(
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                  padding: EdgeInsets.all(MyPaddings().defaultPadding),
+                  child: Text(
+                    MyStrings().RecommendCardText,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: screenheight * 0.03,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Positioned.fill(
-            child: Align(
-              alignment: Alignment.bottomRight,
-              child: Icon(
-                Icons.chevron_right_outlined,
-                color: Colors.white,
-                size: screenwidth * 0.1,
+            Positioned.fill(
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: Icon(
+                  Icons.chevron_right_outlined,
+                  color: Colors.white,
+                  size: screenwidth * 0.1,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
