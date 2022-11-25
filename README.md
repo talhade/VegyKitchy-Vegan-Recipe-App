@@ -1,14 +1,17 @@
-# VegyKitchy
 
-A recipe finding app for vegan meals.
-I used Spoonacular API to get recipes.
+# VeggyKitch
 
-## Getting Started
+A recipe finder app for vegan courses. Built with flutter. 
+I used spoonacular api to create this app.
 
-This project is a starting point for a Flutter application.
-https://spoonacular.com/food-api
-A few resources to get you started if this is your first Flutter project:
+## Demo
+![app_video_vegan](https://user-images.githubusercontent.com/114522498/204005122-3ffda4ff-b6b3-4be8-8063-e56b6b72999e.gif)
 
-- To Run This Project In Your Computer:
-  - Clone This Repository
-  - Get an API key from https://spoonacular.com/food-api
+
+Demoya gif veya bağlantı ekleyin
+
+
+To Run The App:
+- Coppy This Repository
+- Get an API Key from https://spoonacular.com/food-api
+- In lib/secret/api_key.dart file add your API key
