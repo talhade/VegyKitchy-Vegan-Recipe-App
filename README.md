@@ -2,7 +2,7 @@
 # 🌱VegyKitch
 
 A recipe finder app for vegan courses. Built with flutter. 
-I used spoonacular api to create this app.
+Used spoonacular api to create this app.
 
 ## Demo
 ![app_video_vegan](https://user-images.githubusercontent.com/114522498/204005122-3ffda4ff-b6b3-4be8-8063-e56b6b72999e.gif)
