@@ -10,6 +10,6 @@ Used spoonacular api to create this app.
 
 
 To Run The App:
-- Coppy This Repository
+- Copy This Repository
 - Get an API Key from https://spoonacular.com/food-api
 - In lib/secret/api_key.dart file add your API key
