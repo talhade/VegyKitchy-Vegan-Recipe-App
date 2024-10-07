@@ -12,7 +12,8 @@
 
 Here’s a preview of the app in action:
 
-![app_video_vegan](https://s6.ezgif.com/tmp/ezgif-6-4f8ddbd0c0.gif)
+![app video vegan](https://s6.ezgif.com/tmp/ezgif-6-4f8ddbd0c0.gif)
+
 
 ## Technologies Used
 
