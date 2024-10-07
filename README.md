@@ -12,7 +12,7 @@
 
 Here’s a preview of the app in action:
 
-![app video vegan](https://s6.ezgif.com/tmp/ezgif-6-4f8ddbd0c0.gif)
+![app video vegan](https://user-images.githubusercontent.com/114522498/204005122-3ffda4ff-b6b3-4be8-8063-e56b6b72999e.gif)
 
 
 ## Technologies Used
