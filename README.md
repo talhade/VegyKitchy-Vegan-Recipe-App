@@ -16,8 +16,8 @@ Here’s a preview of the app in action:
 
 ## Technologies Used
 
-- **Swift**: The app is built using Swift for iOS development.
-- **UIKit**: User interfaces are created with UIKit.
+- **Flutter**: The app is built using Flutter for cross-platform development.
+- **Dart**: The programming language used for Flutter development.
 - **Spoonacular API**: The app fetches recipe data from the Spoonacular API.
 
 ## Installation
@@ -27,8 +27,9 @@ To run this project locally, follow these steps:
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/talhade/VegyKitchy-Vegan-Recipe-App.git
-2. **Open in Xcode**:  
-   Open the project in Xcode and ensure all dependencies are resolved.
+2. **Open in Your IDE**:  
+   Open the project in your preferred IDE (such as Android Studio or VS Code).
 
 3. **Run the Project**:  
-   Build and run the project on a simulator or a physical iOS device.
+   Use the command line or your IDE to run the project on an emulator or a physical device.
+
